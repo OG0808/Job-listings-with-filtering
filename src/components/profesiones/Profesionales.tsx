@@ -1,47 +1,20 @@
-
-import Data from "../../../data.json";
-
 import useStore from "../../store/useStoreSkills";
+import { users } from "../../utils/Filters";
 
-interface User {
-  role: string;
-  level: string;
-  id: number;
-  logo: string;
-  company: string;
-  featured: boolean;
-  new: boolean;
-  position: string;
-  postedAt: string;
-  contract: string;
-  location: string;
-  languages: string[];
-}
+
 
 const Profesionales = () => {
-const {addSkills, skillsTodo}=useStore()
+
+  const { addSkills} = useStore();
+  const{filteredUsers}=users()
 
 
-const skils = skillsTodo.map(skills=> skills.skill);
 
 
   
-  const users = Data.filter((user)=> {
-    if(skils.length > 0){
-      return skils.includes(user.role) || 
-      skils.includes(user.level) ||
-         user.languages.some((language) => skils.includes(language));
-    }
-
-    return true;
-  })
-
-
-
-
   return (
     <section className="flex flex-col gap-10 max-w-[1110px] w-full max-sm:mt-10">
-      {users.map((users: User) => (
+      {filteredUsers.map((users) => (
         <article
           className="
         min-h-[152px] flex gap-4 items-center rounded-lg 
